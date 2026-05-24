@@ -1,0 +1,21 @@
+# Generated / local data
+cleaned/
+original_txt/
+other_doc/
+clean_report.csv
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local previews and backups
+single_preview/
+single_preview_report.csv
+joined_preview/
+backup_*/
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

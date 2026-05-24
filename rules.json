@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "description": "TXT cleanup rules for novel-style plain text files.",
+  "profiles": {
+    "safe": {
+      "remove_ads": true,
+      "normalize_punctuation": false,
+      "indent_paragraphs": false,
+      "normalize_chapters": false,
+      "join_broken_lines": false,
+      "remove_duplicate_lines": false
+    },
+    "normal": {
+      "remove_ads": true,
+      "normalize_punctuation": true,
+      "indent_paragraphs": true,
+      "normalize_chapters": false,
+      "join_broken_lines": false,
+      "remove_duplicate_lines": false
+    },
+    "format": {
+      "remove_ads": true,
+      "normalize_punctuation": true,
+      "indent_paragraphs": true,
+      "normalize_chapters": false,
+      "join_broken_lines": false,
+      "remove_duplicate_lines": true
+    },
+    "join": {
+      "remove_ads": true,
+      "normalize_punctuation": true,
+      "indent_paragraphs": true,
+      "normalize_chapters": false,
+      "join_broken_lines": true,
+      "remove_duplicate_lines": true
+    },
+    "aggressive": {
+      "remove_ads": true,
+      "normalize_punctuation": true,
+      "indent_paragraphs": true,
+      "normalize_chapters": true,
+      "join_broken_lines": true,
+      "remove_duplicate_lines": true
+    }
+  },
+  "ad_line_patterns": [
+    "楼中网",
+    "LOUZHONG8\\.COM",
+    "LVLUOG\\.COM",
+    "绿萝阁",
+    "搜书吧",
+    "桃花影视",
+    "高辣\\s*[Hh]?文",
+    "翠微居",
+    "龙腾小说吧",
+    "www\\.[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+    "https?://\\S+",
+    "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b",
+    "最新地址",
+    "请收藏",
+    "请牢记",
+    "永久地址",
+    "备用网址",
+    "网站无法打开",
+    "发送邮件.*获取",
+    "微信公众号",
+    "微信公号",
+    "QQ群",
+    "加入.*群",
+    "更多.*小说",
+    "更多.*精彩",
+    "本书.*整理",
+    "本书.*来自",
+    "由.*整理上传",
+    "转载请",
+    "下载.*小说",
+    "未删节合集",
+    "男人都懂得"
+  ],
+  "inline_ad_patterns": [
+    "(龙腾小说|汉版主小说网|第一版主小说站|第壹版主小説站)?\\s*[WwｗＷ]{0,3}[\\.。．点\\s]*0\\s*1\\s*[BbｂＢ]\\s*[ZzｚＺ]\\s*[\\.。．点\\s]*(cc|com|net|wang|in|ＣＣ|ＣＯＭ|ＮＥＴ|ＷＡＮＧ|ＩＮ)",
+    "发送邮件\\s+[\\w\\u0100-\\u024f]+\\s*[⊙@＠]\\s*qq[\\.。．]c[oō]m\\s*",
+    "(龙腾小说|汉版主小说网|汉主小说网|第一版主小说站|第壹版主小説站)\\s*",
+    "首发\\s*小?说网\\s*(wang)?",
+    "[百摆]/?度/?搜/?第/?一/?版/?主/?小/?说/?站[！!。]?",
+    "/搜/第/一/版/主/小/说/站[！!。]?",
+    "读精[^\\n]{0,80}?版主小[^\\n]{0,20}?[说説說]网[！!。]?",
+    "桃花影视[:：]?\\s*\\S+\\s*男人都懂得[！!。]?",
+    "想看更多[^，。；;\\n]{0,40}，?请访问[:：]?\\s*\\S+",
+    "请访问[:：]?\\s*\\S+"
+  ],
+  "markup_patterns": [
+    "<\\s*/?\\s*(span|font|div|p|br|strong|b|i|u)[^>]*>",
+    "\\bspan\\s+style\\s*=\\s*size\\s*[：:]\\s*\\d+\\s*px",
+    "\\bspan\\s+\\d+\\s*px",
+    "\\bfont\\s+size\\s*=\\s*[\"']?\\d+[\"']?",
+    "\\bstyle\\s*=\\s*[\"']?[^\"'\\s>]+[\"']?",
+    "\\btarget\\s*=\\s*[\"']?[A-Za-z0-9_-]+[\"']?",
+    "(?:t\\.rkc[”\"']*\\s*(?:tart[”\"']*blank[”\"']*(?:&gt;|>)?)?)+",
+    "(?:&quot;|[”\"'])\\s*tart(?:&quot;|[”\"'])\\s*blank(?:&quot;|[”\"'])?(?:&gt;|>)?"
+  ],
+  "noise_line_patterns": [
+    "^[\\s　]*[┏┓┗┛┃━╔╗╚╝║═╭╮╰╯│─◢◣\\+\\-=]{4,}[\\s　]*$",
+    "^[\\s　]*[·。\\.]{6,}[\\s　]*$",
+    "^[\\s　]*[-_=*#]{5,}[\\s　]*$"
+  ],
+  "chapter_patterns": [
+    "^[\\s　]*(第[零〇一二三四五六七八九十百千万0-9]+[章节回卷部集篇])([、.．:：\\s　-]*)(.*)$",
+    "^[\\s　]*([0-9]{1,4})[、.．:：\\s　-]+(.{0,40})$"
+  ],
+  "filename_strip_patterns": [
+    "\\.楼中网\\(LOUZHONG8\\.COM\\)",
+    "_楼中网\\(LOUZHONG8\\.COM\\)",
+    "-楼中网",
+    "_楼中网",
+    "楼中网",
+    "搜书吧"
+  ]
+}
