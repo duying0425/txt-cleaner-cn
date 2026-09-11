@@ -1,0 +1,50 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Build standalone executable with PyInstaller
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path bin | Out-Null
+          pyinstaller --clean --noconfirm --onedir --name txt-cleaner --add-data "rules.json;." clean_txt.py
+          # Also package single-file exe
+          pyinstaller --clean --noconfirm --onefile --name txt-cleaner-standalone --add-data "rules.json;." clean_txt.py
+          Move-Item -Path "dist/txt-cleaner-standalone.exe" -Destination "bin/txt-cleaner.exe" -Force
+          Compress-Archive -Path "dist/txt-cleaner/*" -DestinationPath "bin/txt-cleaner-windows-x64.zip" -Force
+          Get-ChildItem -Path bin
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            bin/txt-cleaner.exe
+            bin/txt-cleaner-windows-x64.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+

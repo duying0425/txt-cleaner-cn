@@ -20,8 +20,21 @@ from pathlib import Path
 from typing import Iterable
 
 
-SCRIPT_NAME = Path(__file__).name
-DEFAULT_RULES = Path(__file__).with_name("rules.json")
+SCRIPT_NAME = Path(sys.executable).name if getattr(sys, "frozen", False) else Path(__file__).name
+
+def _resolve_default_rules() -> Path:
+    if getattr(sys, "frozen", False):
+        # Check adjacent to executable first
+        exe_rules = Path(sys.executable).parent / "rules.json"
+        if exe_rules.exists():
+            return exe_rules
+        # Fall back to bundled resource in PyInstaller _MEIPASS
+        meipass = getattr(sys, "_MEIPASS", None)
+        if meipass and (Path(meipass) / "rules.json").exists():
+            return Path(meipass) / "rules.json"
+    return Path(__file__).with_name("rules.json")
+
+DEFAULT_RULES = _resolve_default_rules()
 DEFAULT_OUTPUT_DIR = "cleaned"
 
 
