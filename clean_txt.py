@@ -20,6 +20,8 @@ from pathlib import Path
 from typing import Iterable
 
 
+SCRIPT_NAME = Path(__file__).name
+DEFAULT_RULES = Path(__file__).with_name("rules.json")
 SCRIPT_NAME = Path(sys.executable).name if getattr(sys, "frozen", False) else Path(__file__).name
 
 def _resolve_default_rules() -> Path:
